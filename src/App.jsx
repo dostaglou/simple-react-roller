@@ -11,7 +11,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container mt-5 p-4 bg-primary">
         <Header />
         <DiceForm />
       </div>
