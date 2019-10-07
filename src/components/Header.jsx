@@ -4,7 +4,7 @@ class Header extends React.Component {
 
   render(){
     return (
-      <div>Simple React Roller</div>
+      <div className="text-center bg-warning">{this.props.header}</div>
     );
   }
 }
