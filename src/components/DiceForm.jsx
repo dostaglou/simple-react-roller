@@ -5,12 +5,36 @@ class DiceForm extends React.Component {
 
   }
 
+  handleDiceSides = (e) => {
+    this.props.diceSides(e.target.value)
+  }
+  handleDiceNumber = (e) => {
+    this.props.diceNumber(e.target.value)
+  }
+  handleDiceAdjustments = (e) => {
+    this.props.diceAdjustment(e.target.value)
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+  }
+
+
   render() {
+    const styles = {
+
+    }
+
+    const classes = "col-6 col-offset-3"
+
     return (
-      <from>
+      <form className={classes}
+            onSubmit={this.handleSubmit}>
         <div>
           <p>How many sides?</p>
           <input
+            onChange={this.handleDiceSides}
             type="number"
             min="1"
             max="100"
@@ -20,6 +44,7 @@ class DiceForm extends React.Component {
         <div>
           <p>How many rolls?</p>
           <input
+            onChange={this.handleDiceNumber}
             type="number"
             min="1"
             max="100"
@@ -27,15 +52,20 @@ class DiceForm extends React.Component {
           />
         </div>
         <div>
-          <p>Any Adjustment?</p>
+          <p>Any Adjustments?</p>
           <input
+            onChange={this.handleDiceAdjustments}
             type="number"
             min="-100"
             max="100"
             placeholder="0"
           />
         </div>
-      </from>
+        <input
+          className="w-100 mt-3"
+          type="submit"
+        />
+      </form>
     );
   }
 }
