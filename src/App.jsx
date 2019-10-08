@@ -8,42 +8,43 @@ class App extends Component {
   state = {
     diceContent: [{
       headerText: "Welcome to Simple React Roller",
-      diceSides: null,
-      diceNumber: null,
-      diceAdjustment: null,
     }]
   }
 
-  diceToAdd = {
-    headerText: null,
-    diceSides: null,
-    diceNumber: null,
-    diceAdjustment: null
+  handleAddDice =(rolls, total) => {
+    let roll = {
+      headerText: rolls,
+      total: total
+    };
+    this.setState( prevState => ({
+      diceContent: prevState.diceContent.concat(roll)
+    }))
   }
 
-  logDice = () => {
-    console.log(this.diceToAdd)
+  handleRoll = (sides, number, adjustment) => {
+    let rolls = "";
+    let total = 0;
+    let adj = parseInt(adjustment)
+
+    var i = 0
+    if (number > 1) {
+      rolls += "Your individual rolls were:"
+    } else {
+      rolls += "Your roll was"
+    };
+    for (i = 0; i < number; i++) {
+      var result = Math.floor(Math.random() * sides + 1);
+      if (i === 0) {
+        rolls += ` ${result.toString()}`
+      } else {
+        rolls += `, ${result.toString()}`
+      };
+      total += result
+    }
+    rolls += ` with a + ${adjustment}`
+    total = total + adj
+    this.handleAddDice(rolls, total)
   }
-
-  handleDiceSides = (value) => {
-    this.diceToAdd.diceSides = value
-    this.logDice()
-  }
-
-  handleDiceNumber = (value) => {
-    this.diceToAdd.diceNumber = value
-    this.logDice()
-  }
-
-  handleDiceAdjustments = (value) => {
-    this.diceToAdd.diceAdjustment = value
-    this.logDice()
-  }
-
-  handleRoll = () => {
-
-  }
-
 
   render() {
     return (
@@ -52,9 +53,7 @@ class App extends Component {
           header = { this.state.diceContent.slice(-1)[0].headerText }
         />
         <DiceForm
-        diceSides = {this.handleDiceSides}
-        diceNumber = {this.handleDiceNumber}
-        diceAdjustment = {this.handleDiceAdjustments}
+        handleRoll = {this.handleRoll}
         />
       </div>
     );

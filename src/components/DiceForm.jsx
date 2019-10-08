@@ -2,22 +2,34 @@ import React from 'react'
 
 class DiceForm extends React.Component {
   state = {
+    diceSides: null,
+    diceNumber: null,
+    diceAdjustment: null
+  }
 
+
+  logDice = () => {
+    console.log(this.state)
   }
 
   handleDiceSides = (e) => {
-    this.props.diceSides(e.target.value)
+    this.setState({diceSides: e.target.value})
   }
+
   handleDiceNumber = (e) => {
-    this.props.diceNumber(e.target.value)
+    this.setState({diceNumber: e.target.value})
   }
+
   handleDiceAdjustments = (e) => {
-    this.props.diceAdjustment(e.target.value)
+    this.setState({diceAdjustment: e.target.value})
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-
+    let sides = this.state.diceSides
+    let number = this.state.diceNumber
+    let adjustment = this.state.diceAdjustment
+    this.props.handleRoll(sides, number, adjustment)
   }
 
 
@@ -38,7 +50,7 @@ class DiceForm extends React.Component {
             type="number"
             min="1"
             max="100"
-            placeholder="1"
+            placeholder="0"
           />
         </div>
         <div>
@@ -48,7 +60,7 @@ class DiceForm extends React.Component {
             type="number"
             min="1"
             max="100"
-            placeholder="1"
+            placeholder="0"
           />
         </div>
         <div>
